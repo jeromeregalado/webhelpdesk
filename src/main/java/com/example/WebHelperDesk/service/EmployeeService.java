@@ -29,4 +29,15 @@ public class EmployeeService {
             employeeRepository.deleteById(employeeId);
         }
     }
+
+    public Employee viewEmployee(Integer employeeNumber){
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
+        if(employeeOptional.isPresent()){
+            Employee employee = employeeOptional.get();
+            return employee;
+        }
+        else{
+            throw new RuntimeException("No such employee");
+        }
+    }
 }
