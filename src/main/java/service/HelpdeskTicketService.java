@@ -1,6 +1,6 @@
-package Service;
+package service;
 
-import Repository.TicketingRepository;
+import repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

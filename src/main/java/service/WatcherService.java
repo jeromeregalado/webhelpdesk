@@ -1,11 +1,10 @@
-package Service;
+package service;
 
-import Repository.EmployeeRepository;
-import Repository.TicketingRepository;
+import repository.EmployeeRepository;
+import repository.TicketingRepository;
 import entity.employee.Employee;
 import entity.ticketing.HelpdeskTicket;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

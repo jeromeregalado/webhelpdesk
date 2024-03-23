@@ -1,4 +1,4 @@
-package Repository;
+package repository;
 
 import entity.employee.Employee;
 import org.springframework.data.repository.PagingAndSortingRepository;
