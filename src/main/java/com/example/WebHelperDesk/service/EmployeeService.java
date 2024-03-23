@@ -1,8 +1,8 @@
-package service;
+package com.example.WebHelperDesk.service;
 
-import repository.EmployeeRepository;
-import repository.TicketingRepository;
-import entity.employee.Employee;
+import com.example.WebHelperDesk.entity.employee.Employee;
+import com.example.WebHelperDesk.repository.EmployeeRepository;
+import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,10 @@ public class EmployeeService {
 
     @Autowired
     TicketingRepository ticketingRepository;
+
+    public Employee addEmployee(Employee employee){
+        return employeeRepository.save(employee);
+    }
 
     public void DeleteEmployee(Integer employeeId){
         Optional<Employee> employeeOptional = employeeRepository.findById(employeeId);

@@ -1,25 +1,21 @@
-package entity.employee;
+package com.example.WebHelperDesk.entity.employee;
 
-import entity.ticketing.HelpdeskTicket;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import lombok.Data;
-import org.springframework.data.annotation.Id;
+import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
+import jakarta.persistence.*;
 
 @Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true)
     private Integer employeeNumber;
     private String firstName;
     private String middleName;
     private String lastName;
     private Department department;
     @ManyToOne
-    private HelpdeskTicket helpdeskTicket;
+    private HelpdeskTicket ticketsWatching;
 
     public Integer getId() {
         return id;
@@ -69,11 +65,11 @@ public class Employee {
         this.department = department;
     }
 
-    public HelpdeskTicket getHelpdeskTicket() {
-        return helpdeskTicket;
+    public HelpdeskTicket getTicketsWatching() {
+        return ticketsWatching;
     }
 
-    public void setHelpdeskTicket(HelpdeskTicket helpdeskTicket) {
-        this.helpdeskTicket = helpdeskTicket;
+    public void setTicketsWatching(HelpdeskTicket ticketsWatching) {
+        this.ticketsWatching = ticketsWatching;
     }
 }

@@ -1,14 +1,13 @@
-package entity.ticketing;
+package com.example.WebHelperDesk.entity.ticketing;
 
-import entity.employee.Employee;
+import com.example.WebHelperDesk.entity.employee.Employee;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Setter;
 
 import java.util.List;
 @Entity
 public class HelpdeskTicket {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ticketNumber;
     private String title;
     private String description;
@@ -16,7 +15,7 @@ public class HelpdeskTicket {
     private Status status;
     @OneToOne
     private Employee assignee;
-    @OneToMany(mappedBy = "helpdeskTicket", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticketsWatching", cascade = CascadeType.ALL)
     private List<Employee> watchers;
 
     public Integer getTicketNumber() {

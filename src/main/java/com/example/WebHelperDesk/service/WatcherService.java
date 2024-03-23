@@ -1,9 +1,9 @@
-package service;
+package com.example.WebHelperDesk.service;
 
-import repository.EmployeeRepository;
-import repository.TicketingRepository;
-import entity.employee.Employee;
-import entity.ticketing.HelpdeskTicket;
+import com.example.WebHelperDesk.entity.employee.Employee;
+import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
+import com.example.WebHelperDesk.repository.EmployeeRepository;
+import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,13 @@ public class WatcherService {
     TicketingRepository ticketingRepository;
 
 
-    public HelpdeskTicket saveWatcher(Integer ticketNumber, Employee employee) throws RuntimeException {
+    public HelpdeskTicket saveWatcher(Integer ticketNumber, Integer employeeId) throws RuntimeException {
         Optional<HelpdeskTicket> watcherOptional = ticketingRepository.findByTicketNumber(ticketNumber);
-        if (watcherOptional.isPresent()) {
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeId);
+        if (watcherOptional.isPresent() && employeeOptional.isPresent()) {
             HelpdeskTicket helpdeskTicket = watcherOptional.get();
-            employee.setHelpdeskTicket(helpdeskTicket);
+            Employee employee = employeeOptional.get();
+            employee.setTicketsWatching(helpdeskTicket);
             return ticketingRepository.save(helpdeskTicket);
         } else {
             throw new RuntimeException();

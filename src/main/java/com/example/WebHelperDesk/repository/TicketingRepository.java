@@ -1,7 +1,7 @@
-package repository;
+package com.example.WebHelperDesk.repository;
 
-import entity.employee.Employee;
-import entity.ticketing.HelpdeskTicket;
+import com.example.WebHelperDesk.entity.employee.Employee;
+import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
