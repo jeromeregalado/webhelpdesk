@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.WebHelperDesk.service.EmployeeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -22,7 +24,17 @@ public class EmployeeController {
     }
 
     @GetMapping("/view/{employeeNumber}")
-    public Employee getEmployee(Integer employeeNumber){
+    public Employee getEmployee(@PathVariable Integer employeeNumber){
         return employeeService.viewEmployee(employeeNumber);
+    }
+
+    @GetMapping("/viewAll")
+    public List<Employee> viewAllEmployees(){
+        return employeeService.viewAllEmployees();
+    }
+
+    @DeleteMapping("/delete/{employeeNumber}")
+    public String deleteEmployee(@PathVariable Integer employeeNumber){
+        return employeeService.DeleteEmployee(employeeNumber);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.WebHelperDesk.service;
 
+import com.example.WebHelperDesk.dto.WatcherRequest;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.repository.EmployeeRepository;
@@ -20,14 +21,17 @@ public class WatcherService {
     TicketingRepository ticketingRepository;
 
 
-    public HelpdeskTicket saveWatcher(Integer ticketNumber, Integer employeeId) throws RuntimeException {
-        Optional<HelpdeskTicket> watcherOptional = ticketingRepository.findByTicketNumber(ticketNumber);
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeId);
-        if (watcherOptional.isPresent() && employeeOptional.isPresent()) {
-            HelpdeskTicket helpdeskTicket = watcherOptional.get();
+    public String saveWatcher(WatcherRequest watcherRequest) throws RuntimeException {
+        Optional<HelpdeskTicket> ticketOptional = ticketingRepository
+                .findByTicketNumber(watcherRequest.getTicketNumber());
+        Optional<Employee> employeeOptional = employeeRepository
+                .findByEmployeeNumber(watcherRequest.getEmployeeNumber());
+        if (ticketOptional.isPresent() && employeeOptional.isPresent()) {
+            HelpdeskTicket helpdeskTicket = ticketOptional.get();
             Employee employee = employeeOptional.get();
             employee.setTicketsWatching(helpdeskTicket);
-            return ticketingRepository.save(helpdeskTicket);
+            employeeRepository.save(employee);
+            return "Watcher added in: Ticket " + helpdeskTicket.getTitle();
         } else {
             throw new RuntimeException();
         }

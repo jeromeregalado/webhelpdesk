@@ -1,12 +1,10 @@
 package com.example.WebHelperDesk.controller;
 
+import com.example.WebHelperDesk.dto.AssignRequest;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.service.HelpdeskTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tickets")
@@ -17,5 +15,15 @@ public class HelpdeskTicketController {
     @PostMapping("/add")
     public HelpdeskTicket addTicket(@RequestBody HelpdeskTicket helpdeskTicket){
         return helpdeskTicketService.addTicket(helpdeskTicket);
+    }
+
+    @GetMapping("/view/{ticketNumber}")
+    public HelpdeskTicket viewTicket(@PathVariable Integer ticketNumber){
+        return helpdeskTicketService.viewTicketByTicketNumber(ticketNumber);
+    }
+
+    @PutMapping("/assignTicket")
+    public String assignTicket(@RequestBody AssignRequest assignRequest){
+       return helpdeskTicketService.assignEmployeeToTicket(assignRequest);
     }
 }

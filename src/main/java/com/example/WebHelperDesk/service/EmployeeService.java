@@ -6,6 +6,7 @@ import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,16 +21,27 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public void DeleteEmployee(Integer employeeId){
-        Optional<Employee> employeeOptional = employeeRepository.findById(employeeId);
-        if(ticketingRepository.findByAssignee(employeeOptional)){
-            System.out.println("Cannot be deleted");
+    public String DeleteEmployee(Integer employeeNumber){
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
+        if(employeeOptional.isPresent()) {
+            if(ticketingRepository.findByAssignee(employeeOptional)){
+                return "Has assigned ticket. Employee cannot be deleted";
+            }
+            else{
+                Employee employee = employeeOptional.get();
+                String employeeDeleted = employee.getEmployeeNumber() + " has been deleted";
+                employeeRepository.deleteByEmployeeNumber(employeeNumber);
+                return employeeDeleted;
+            }
         }
         else{
-            employeeRepository.deleteById(employeeId);
+            return "employee does not exist";
         }
     }
 
+    public List<Employee> viewAllEmployees(){
+        return employeeRepository.findAll();
+    }
     public Employee viewEmployee(Integer employeeNumber){
         Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
         if(employeeOptional.isPresent()){
