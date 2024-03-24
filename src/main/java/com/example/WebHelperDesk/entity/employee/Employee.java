@@ -14,7 +14,7 @@ public class Employee {
     private String middleName;
     private String lastName;
     private Department department;
-    @ManyToMany
+    @ManyToOne
     private HelpdeskTicket ticketsWatching;
 
     public Integer getId() {
