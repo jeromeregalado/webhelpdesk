@@ -15,7 +15,7 @@ public class HelpdeskTicket {
     private Status status;
     @OneToOne
     private Employee assignee;
-    @OneToMany(mappedBy = "ticketsWatching", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "ticketsWatching", cascade = CascadeType.ALL)
     private List<Employee> watchers;
 
     public Integer getTicketNumber() {
