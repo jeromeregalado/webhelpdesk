@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class WatcherService {
@@ -30,15 +31,15 @@ public class WatcherService {
         if (ticketOptional.isPresent() && employeeOptional.isPresent()) {
             HelpdeskTicket helpdeskTicket = ticketOptional.get();
             Employee employee = employeeOptional.get();
-            employee.getTicketsWatching().add(helpdeskTicket);
-            employeeRepository.save(employee);
+            helpdeskTicket.getWatchers().add(employee);
+            ticketingRepository.save(helpdeskTicket);
             return "Watcher added in: Ticket " + helpdeskTicket.getTitle();
         } else {
             throw new RecordNotFoundException();
         }
     }
 
-    public List<Employee> findAllWatchers(Integer ticketNumber, Pageable pageable) throws RecordNotFoundException {
+    public Set<Employee> findAllWatchers(Integer ticketNumber, Pageable pageable) throws RecordNotFoundException {
             return ticketingRepository.findByTicketNumber(ticketNumber).get().getWatchers();
     }
 

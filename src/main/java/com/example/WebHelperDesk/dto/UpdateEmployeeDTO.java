@@ -1,38 +1,12 @@
-package com.example.WebHelperDesk.entity.employee;
+package com.example.WebHelperDesk.dto;
 
-import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
-import jakarta.persistence.*;
+import com.example.WebHelperDesk.entity.employee.Department;
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Entity
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(unique = true)
-    private Integer employeeNumber;
+public class UpdateEmployeeDTO {
     private String firstName;
     private String middleName;
     private String lastName;
     private Department department;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public void setEmployeeNumber(Integer employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
 
     public String getFirstName() {
         return firstName;

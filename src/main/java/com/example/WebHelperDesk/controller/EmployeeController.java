@@ -1,5 +1,6 @@
 package com.example.WebHelperDesk.controller;
 
+import com.example.WebHelperDesk.dto.UpdateEmployeeDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +37,10 @@ public class EmployeeController {
     @DeleteMapping("/delete/{employeeNumber}")
     public String deleteEmployee(@PathVariable Integer employeeNumber){
         return employeeService.DeleteEmployee(employeeNumber);
+    }
+
+    @PutMapping("/update/{employeeNumber}")
+    public Employee updateEmployee(@PathVariable Integer employeeNumber, @RequestBody UpdateEmployeeDTO updateEmployeeDTO){
+        return employeeService.updateEmployee(employeeNumber,updateEmployeeDTO);
     }
 }

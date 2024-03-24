@@ -3,7 +3,8 @@ package com.example.WebHelperDesk.entity.ticketing;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 @Entity
 public class HelpdeskTicket {
     @Id
@@ -15,8 +16,8 @@ public class HelpdeskTicket {
     private Status status;
     @OneToOne
     private Employee assignee;
-    @ManyToMany(mappedBy = "ticketsWatching", fetch = FetchType.LAZY)
-    private List<Employee> watchers;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Employee> watchers = new HashSet<>();
 
     public Integer getTicketNumber() {
         return ticketNumber;
@@ -66,11 +67,11 @@ public class HelpdeskTicket {
         this.assignee = assignee;
     }
 
-    public List<Employee> getWatchers() {
+    public Set<Employee> getWatchers() {
         return watchers;
     }
 
-    public void setWatchers(List<Employee> watchers) {
+    public void setWatchers(Set<Employee> watchers) {
         this.watchers = watchers;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.WebHelperDesk.service;
 
+import com.example.WebHelperDesk.dto.UpdateEmployeeDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.exception.RecordNotFoundException;
@@ -50,6 +51,21 @@ public class EmployeeService {
         if(employeeOptional.isPresent()){
             Employee employee = employeeOptional.get();
             return employee;
+        }
+        else{
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public Employee updateEmployee(Integer employeeNumber, UpdateEmployeeDTO updateEmployeeDTO){
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
+        if(employeeOptional.isPresent()){
+            Employee employee = employeeOptional.get();
+            employee.setFirstName(updateEmployeeDTO.getFirstName());
+            employee.setMiddleName(updateEmployeeDTO.getMiddleName());
+            employee.setLastName(updateEmployeeDTO.getLastName());
+            employee.setDepartment(updateEmployeeDTO.getDepartment());
+            return employeeRepository.save(employee);
         }
         else{
             throw new RecordNotFoundException();
