@@ -38,9 +38,4 @@ public class WatcherService {
             throw new RecordNotFoundException();
         }
     }
-
-    public Set<Employee> findAllWatchers(Integer ticketNumber, Pageable pageable) throws RecordNotFoundException {
-            return ticketingRepository.findByTicketNumber(ticketNumber).get().getWatchers();
-    }
-
 }

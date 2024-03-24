@@ -2,6 +2,7 @@ package com.example.WebHelperDesk.service;
 
 import com.example.WebHelperDesk.dto.AssignRequest;
 import com.example.WebHelperDesk.dto.AssignedIdDTO;
+import com.example.WebHelperDesk.dto.DeleteTicketRequest;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.exception.RecordNotFoundException;
@@ -50,6 +51,18 @@ public class HelpdeskTicketService {
                     helpdeskTicket.getTitle();
         }
         else {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public String deleteTicket(DeleteTicketRequest deleteTicketRequest) throws RecordNotFoundException {
+        Optional<HelpdeskTicket> ticketOptional = ticketingRepository
+                .findByTicketNumber(deleteTicketRequest.getTicketNumber());
+        if (ticketOptional.isPresent()) {
+            HelpdeskTicket ticket = ticketOptional.get();
+            ticketingRepository.delete(ticket);
+            return deleteTicketRequest.getTicketNumber() + " has been deleted";
+        } else {
             throw new RecordNotFoundException();
         }
     }

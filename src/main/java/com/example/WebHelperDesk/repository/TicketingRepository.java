@@ -2,6 +2,7 @@ package com.example.WebHelperDesk.repository;
 
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ public interface TicketingRepository extends PagingAndSortingRepository<Helpdesk
     Optional<HelpdeskTicket> findByTicketNumber(Integer ticketNumber);
 
     List<HelpdeskTicket> findByAssigneeId(Integer employeeId);
+
+    void delete(HelpdeskTicket helpdeskTicket);
 }
