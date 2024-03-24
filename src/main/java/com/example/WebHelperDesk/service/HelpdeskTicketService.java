@@ -3,6 +3,7 @@ package com.example.WebHelperDesk.service;
 import com.example.WebHelperDesk.dto.AssignRequest;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
+import com.example.WebHelperDesk.exception.RecordNotFoundException;
 import com.example.WebHelperDesk.repository.EmployeeRepository;
 import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,18 @@ public class HelpdeskTicketService {
         return ticketingRepository.save(ticket);
     }
 
-    public HelpdeskTicket viewTicketByTicketNumber(Integer ticketNumber){
+    public HelpdeskTicket viewTicketByTicketNumber(Integer ticketNumber) throws RecordNotFoundException{
         Optional<HelpdeskTicket> ticketOptional = ticketingRepository.findByTicketNumber(ticketNumber);
         if(ticketOptional.isPresent()){
             HelpdeskTicket helpdeskTicket = ticketOptional.get();
             return helpdeskTicket;
         }
         else{
-            throw new RuntimeException("No such ticket");
+            throw new RecordNotFoundException();
         }
     }
 
-    public String assignEmployeeToTicket(AssignRequest assignRequest){
+    public String assignEmployeeToTicket(AssignRequest assignRequest) throws RecordNotFoundException {
         Optional<HelpdeskTicket> ticketOptional = ticketingRepository
                 .findByTicketNumber(assignRequest.getTicketNumber());
         Optional<Employee> employeeOptional = employeeRepository
@@ -47,7 +48,7 @@ public class HelpdeskTicketService {
                     helpdeskTicket.getTitle();
         }
         else {
-            throw new RuntimeException("Employee or Ticket does not exist");
+            throw new RecordNotFoundException();
         }
     }
 

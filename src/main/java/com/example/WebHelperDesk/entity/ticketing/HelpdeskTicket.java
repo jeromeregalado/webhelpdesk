@@ -16,7 +16,6 @@ public class HelpdeskTicket {
     @OneToOne
     private Employee assignee;
     @ManyToMany(mappedBy = "ticketsWatching", fetch = FetchType.LAZY)
-    @Column(unique = true)
     private List<Employee> watchers;
 
     public Integer getTicketNumber() {

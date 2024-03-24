@@ -1,6 +1,8 @@
 package com.example.WebHelperDesk.service;
 
 import com.example.WebHelperDesk.entity.employee.Employee;
+import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
+import com.example.WebHelperDesk.exception.RecordNotFoundException;
 import com.example.WebHelperDesk.repository.EmployeeRepository;
 import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class EmployeeService {
         Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
         if(employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
-            if(ticketingRepository.findByAssigneeId(employee.getId()).isPresent()){
+            Optional<HelpdeskTicket> helpdeskTicketOptional = ticketingRepository.findByAssigneeId(employee.getId());
+            if(helpdeskTicketOptional.isPresent()){
                 return "Has assigned ticket. Employee cannot be deleted";
             }
             else{
@@ -42,14 +45,14 @@ public class EmployeeService {
     public List<Employee> viewAllEmployees(){
         return employeeRepository.findAll();
     }
-    public Employee viewEmployee(Integer employeeNumber){
+    public Employee viewEmployee(Integer employeeNumber) throws RecordNotFoundException {
         Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
         if(employeeOptional.isPresent()){
             Employee employee = employeeOptional.get();
             return employee;
         }
         else{
-            throw new RuntimeException("No such employee");
+            throw new RecordNotFoundException();
         }
     }
 }
