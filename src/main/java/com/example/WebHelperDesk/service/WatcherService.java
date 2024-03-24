@@ -29,7 +29,7 @@ public class WatcherService {
         if (ticketOptional.isPresent() && employeeOptional.isPresent()) {
             HelpdeskTicket helpdeskTicket = ticketOptional.get();
             Employee employee = employeeOptional.get();
-            employee.setTicketsWatching(helpdeskTicket);
+            employee.getTicketsWatching().add(helpdeskTicket);
             employeeRepository.save(employee);
             return "Watcher added in: Ticket " + helpdeskTicket.getTitle();
         } else {

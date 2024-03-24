@@ -3,6 +3,8 @@ package com.example.WebHelperDesk.entity.employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Employee {
     @Id
@@ -14,8 +16,9 @@ public class Employee {
     private String middleName;
     private String lastName;
     private Department department;
-    @ManyToOne
-    private HelpdeskTicket ticketsWatching;
+    @ManyToMany
+    @Column(unique = true)
+    private List<HelpdeskTicket> ticketsWatching;
 
     public Integer getId() {
         return id;
@@ -65,11 +68,11 @@ public class Employee {
         this.department = department;
     }
 
-    public HelpdeskTicket getTicketsWatching() {
+    public List<HelpdeskTicket> getTicketsWatching() {
         return ticketsWatching;
     }
 
-    public void setTicketsWatching(HelpdeskTicket ticketsWatching) {
+    public void setTicketsWatching(List<HelpdeskTicket> ticketsWatching) {
         this.ticketsWatching = ticketsWatching;
     }
 }

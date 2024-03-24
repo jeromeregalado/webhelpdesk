@@ -24,13 +24,13 @@ public class EmployeeService {
     public String DeleteEmployee(Integer employeeNumber){
         Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
         if(employeeOptional.isPresent()) {
-            if(ticketingRepository.findByAssignee(employeeOptional)){
+            Employee employee = employeeOptional.get();
+            if(ticketingRepository.findByAssigneeId(employee.getId()).isPresent()){
                 return "Has assigned ticket. Employee cannot be deleted";
             }
             else{
-                Employee employee = employeeOptional.get();
-                String employeeDeleted = employee.getEmployeeNumber() + " has been deleted";
-                employeeRepository.deleteByEmployeeNumber(employeeNumber);
+                employeeRepository.deleteById(employee.getId());
+                String employeeDeleted = employeeNumber + " has been deleted";
                 return employeeDeleted;
             }
         }
