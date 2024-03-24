@@ -2,6 +2,7 @@ package com.example.WebHelperDesk.controller;
 
 import com.example.WebHelperDesk.dto.UpdateEmployeeDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
+import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.WebHelperDesk.service.EmployeeService;
@@ -42,5 +43,9 @@ public class EmployeeController {
     @PutMapping("/update/{employeeNumber}")
     public Employee updateEmployee(@PathVariable Integer employeeNumber, @RequestBody UpdateEmployeeDTO updateEmployeeDTO){
         return employeeService.updateEmployee(employeeNumber,updateEmployeeDTO);
+    }
+    @GetMapping("/viewAssignedTickets/{employeeNumber}")
+    public List<HelpdeskTicket> getListOfAssignedTickets(@PathVariable Integer employeeNumber){
+        return employeeService.getListOfAssignedTickets(employeeNumber);
     }
 }

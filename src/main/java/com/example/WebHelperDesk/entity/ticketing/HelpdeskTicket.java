@@ -14,7 +14,7 @@ public class HelpdeskTicket {
     private String description;
     private Severity severity;
     private Status status;
-    @OneToOne
+    @ManyToOne
     private Employee assignee;
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Employee> watchers = new HashSet<>();

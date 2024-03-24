@@ -28,8 +28,8 @@ public class EmployeeService {
         Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
         if(employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
-            Optional<HelpdeskTicket> helpdeskTicketOptional = ticketingRepository.findByAssigneeId(employee.getId());
-            if(helpdeskTicketOptional.isPresent()){
+            List<HelpdeskTicket> helpdeskTicketList = ticketingRepository.findByAssigneeId(employee.getId());
+            if(!helpdeskTicketList.isEmpty()){
                 return "Has assigned ticket. Employee cannot be deleted";
             }
             else{
@@ -66,6 +66,17 @@ public class EmployeeService {
             employee.setLastName(updateEmployeeDTO.getLastName());
             employee.setDepartment(updateEmployeeDTO.getDepartment());
             return employeeRepository.save(employee);
+        }
+        else{
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public List<HelpdeskTicket> getListOfAssignedTickets(Integer employeeNumber){
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
+        if(employeeOptional.isPresent()){
+            Employee employee = employeeOptional.get();
+            return ticketingRepository.findByAssigneeId(employee.getId());
         }
         else{
             throw new RecordNotFoundException();

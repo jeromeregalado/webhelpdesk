@@ -16,5 +16,5 @@ public interface TicketingRepository extends PagingAndSortingRepository<Helpdesk
 
     Optional<HelpdeskTicket> findByTicketNumber(Integer ticketNumber);
 
-    Optional<HelpdeskTicket> findByAssigneeId(Integer employeeId);
+    List<HelpdeskTicket> findByAssigneeId(Integer employeeId);
 }
