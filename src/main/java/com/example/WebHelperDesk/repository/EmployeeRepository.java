@@ -1,7 +1,6 @@
 package com.example.WebHelperDesk.repository;
 
 import com.example.WebHelperDesk.entity.employee.Employee;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
