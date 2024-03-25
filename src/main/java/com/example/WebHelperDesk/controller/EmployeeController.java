@@ -1,6 +1,7 @@
 package com.example.WebHelperDesk.controller;
 
-import com.example.WebHelperDesk.dto.UpdateEmployeeDTO;
+import com.example.WebHelperDesk.dto.AssignedIdDTO;
+import com.example.WebHelperDesk.dto.update.UpdateEmployeeDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,8 @@ public class EmployeeController {
     public Employee updateEmployee(@PathVariable Integer employeeNumber, @RequestBody UpdateEmployeeDTO updateEmployeeDTO){
         return employeeService.updateEmployee(employeeNumber,updateEmployeeDTO);
     }
-    @GetMapping("/viewAssignedTickets/{employeeNumber}")
-    public List<HelpdeskTicket> getListOfAssignedTickets(@PathVariable Integer employeeNumber){
-        return employeeService.getListOfAssignedTickets(employeeNumber);
+    @GetMapping("/viewAssignedTickets")
+    public List<HelpdeskTicket> getListOfAssignedTickets(@RequestBody AssignedIdDTO assignedIdDTO){
+        return employeeService.getListOfAssignedTickets(assignedIdDTO);
     }
 }

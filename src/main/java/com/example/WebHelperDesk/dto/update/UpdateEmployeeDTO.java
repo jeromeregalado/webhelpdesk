@@ -1,4 +1,4 @@
-package com.example.WebHelperDesk.dto;
+package com.example.WebHelperDesk.dto.update;
 
 import com.example.WebHelperDesk.entity.employee.Department;
 

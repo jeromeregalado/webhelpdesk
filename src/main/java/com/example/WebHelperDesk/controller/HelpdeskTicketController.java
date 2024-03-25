@@ -2,6 +2,7 @@ package com.example.WebHelperDesk.controller;
 
 import com.example.WebHelperDesk.dto.AssignRequest;
 import com.example.WebHelperDesk.dto.DeleteTicketRequest;
+import com.example.WebHelperDesk.dto.update.UpdateTicketDTO;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.service.HelpdeskTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,8 @@ public class HelpdeskTicketController {
         return helpdeskTicketService.deleteTicket(deleteTicketRequest);
     }
 
+    @PutMapping("/update")
+    public HelpdeskTicket updateTicket(@RequestBody UpdateTicketDTO updateTicketDTO){
+        return helpdeskTicketService.updateTicket(updateTicketDTO);
+    }
 }

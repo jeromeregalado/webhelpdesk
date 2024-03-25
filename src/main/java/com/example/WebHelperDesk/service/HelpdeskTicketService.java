@@ -1,8 +1,8 @@
 package com.example.WebHelperDesk.service;
 
 import com.example.WebHelperDesk.dto.AssignRequest;
-import com.example.WebHelperDesk.dto.AssignedIdDTO;
 import com.example.WebHelperDesk.dto.DeleteTicketRequest;
+import com.example.WebHelperDesk.dto.update.UpdateTicketDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.exception.RecordNotFoundException;
@@ -11,7 +11,6 @@ import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,6 +62,22 @@ public class HelpdeskTicketService {
             ticketingRepository.delete(ticket);
             return deleteTicketRequest.getTicketNumber() + " has been deleted";
         } else {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public HelpdeskTicket updateTicket(UpdateTicketDTO updateTicketDTO){
+        Optional<HelpdeskTicket> ticketOptional = ticketingRepository
+                .findByTicketNumber(updateTicketDTO.getTicketNumber());
+        if(ticketOptional.isPresent()){
+            HelpdeskTicket ticketToBeUpdated = ticketOptional.get();
+            ticketToBeUpdated.setTitle(updateTicketDTO.getTitle());
+            ticketToBeUpdated.setDescription(updateTicketDTO.getDescription());
+            ticketToBeUpdated.setSeverity(updateTicketDTO.getSeverity());
+            ticketToBeUpdated.setStatus(updateTicketDTO.getStatus());
+            return ticketingRepository.save(ticketToBeUpdated);
+        }
+        else{
             throw new RecordNotFoundException();
         }
     }

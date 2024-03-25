@@ -23,7 +23,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().authenticated()
+                        .requestMatchers("employees/update/**","tickets/update/**")
+                        .hasRole("ADMIN")
+                        .anyRequest().hasAnyRole("ADMIN","USER")
                 )
                 .httpBasic(withDefaults());
         return http.build();
@@ -42,7 +44,7 @@ public class SecurityConfig {
                 .builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
+                .roles("USER","ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user,admin);

@@ -1,6 +1,7 @@
 package com.example.WebHelperDesk.service;
 
-import com.example.WebHelperDesk.dto.UpdateEmployeeDTO;
+import com.example.WebHelperDesk.dto.AssignedIdDTO;
+import com.example.WebHelperDesk.dto.update.UpdateEmployeeDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.exception.RecordNotFoundException;
@@ -72,8 +73,8 @@ public class EmployeeService {
         }
     }
 
-    public List<HelpdeskTicket> getListOfAssignedTickets(Integer employeeNumber){
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
+    public List<HelpdeskTicket> getListOfAssignedTickets(AssignedIdDTO assignedIdDTO){
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(assignedIdDTO.getEmployeeNumber());
         if(employeeOptional.isPresent()){
             Employee employee = employeeOptional.get();
             return ticketingRepository.findByAssigneeId(employee.getId());
