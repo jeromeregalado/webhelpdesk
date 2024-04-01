@@ -1,6 +1,5 @@
 package com.example.WebHelperDesk.service;
 
-import com.example.WebHelperDesk.dto.AssignedIdDTO;
 import com.example.WebHelperDesk.dto.update.UpdateEmployeeDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
@@ -73,8 +72,8 @@ public class EmployeeService {
         }
     }
 
-    public List<HelpdeskTicket> getListOfAssignedTickets(AssignedIdDTO assignedIdDTO){
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(assignedIdDTO.getEmployeeNumber());
+    public List<HelpdeskTicket> getListOfAssignedTickets(Integer employeeNumber){
+        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeNumber(employeeNumber);
         if(employeeOptional.isPresent()){
             Employee employee = employeeOptional.get();
             return ticketingRepository.findByAssigneeId(employee.getId());

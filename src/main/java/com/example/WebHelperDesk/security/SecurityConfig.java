@@ -32,8 +32,8 @@ public class SecurityConfig {
                         .requestMatchers("employees/update/**","tickets/update/**")
                         .hasRole("ADMIN")
                         .anyRequest()
-//                        .hasAnyRole("ADMIN","USER")
-                                .permitAll()
+                        .hasAnyRole("ADMIN","USER")
+//                                .permitAll()
                 )
                 .httpBasic(withDefaults());
         return http.build();
