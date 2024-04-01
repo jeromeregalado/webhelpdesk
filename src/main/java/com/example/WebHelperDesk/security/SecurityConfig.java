@@ -28,11 +28,12 @@ public class SecurityConfig {
             cors.configurationSource(corsConfigurationSource());
         })
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((authz) -> authz
+                .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("employees/update/**","tickets/update/**")
                         .hasRole("ADMIN")
                         .anyRequest()
-                        .hasAnyRole("ADMIN","USER")
+//                        .hasAnyRole("ADMIN","USER")
+                                .permitAll()
                 )
                 .httpBasic(withDefaults());
         return http.build();

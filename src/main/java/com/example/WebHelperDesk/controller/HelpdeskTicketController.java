@@ -2,9 +2,11 @@ package com.example.WebHelperDesk.controller;
 
 import com.example.WebHelperDesk.dto.AssignRequest;
 import com.example.WebHelperDesk.dto.DeleteTicketRequest;
+import com.example.WebHelperDesk.dto.WatcherRequest;
 import com.example.WebHelperDesk.dto.update.UpdateTicketDTO;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
 import com.example.WebHelperDesk.service.HelpdeskTicketService;
+import com.example.WebHelperDesk.service.WatcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class HelpdeskTicketController {
     @Autowired
     HelpdeskTicketService helpdeskTicketService;
+    @Autowired
+    WatcherService watcherService;
+
+    @PostMapping("watchers/addWatcher")
+    public String addWatcher(@RequestBody WatcherRequest watcherRequest){
+        return watcherService.saveWatcher(watcherRequest);
+    }
 
     @PostMapping("/add")
     public HelpdeskTicket addTicket(@RequestBody HelpdeskTicket helpdeskTicket){
