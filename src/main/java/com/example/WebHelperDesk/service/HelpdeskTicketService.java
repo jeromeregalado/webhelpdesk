@@ -1,7 +1,6 @@
 package com.example.WebHelperDesk.service;
 
 import com.example.WebHelperDesk.dto.AssignRequest;
-import com.example.WebHelperDesk.dto.DeleteTicketRequest;
 import com.example.WebHelperDesk.dto.update.UpdateTicketDTO;
 import com.example.WebHelperDesk.entity.employee.Employee;
 import com.example.WebHelperDesk.entity.ticketing.HelpdeskTicket;
@@ -11,6 +10,7 @@ import com.example.WebHelperDesk.repository.TicketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +36,10 @@ public class HelpdeskTicketService {
         }
     }
 
+    public List<HelpdeskTicket> viewAllTickets(){
+        return ticketingRepository.findAll();
+    }
+
     public String assignEmployeeToTicket(AssignRequest assignRequest) throws RecordNotFoundException {
         Optional<HelpdeskTicket> ticketOptional = ticketingRepository
                 .findByTicketNumber(assignRequest.getTicketNumber());
@@ -54,13 +58,13 @@ public class HelpdeskTicketService {
         }
     }
 
-    public String deleteTicket(DeleteTicketRequest deleteTicketRequest) throws RecordNotFoundException {
+    public String deleteTicket(Integer ticketNumber) throws RecordNotFoundException {
         Optional<HelpdeskTicket> ticketOptional = ticketingRepository
-                .findByTicketNumber(deleteTicketRequest.getTicketNumber());
+                .findByTicketNumber(ticketNumber);
         if (ticketOptional.isPresent()) {
             HelpdeskTicket ticket = ticketOptional.get();
             ticketingRepository.delete(ticket);
-            return deleteTicketRequest.getTicketNumber() + " has been deleted";
+            return ticketNumber + " has been deleted";
         } else {
             throw new RecordNotFoundException();
         }
