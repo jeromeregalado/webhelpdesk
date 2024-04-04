@@ -31,9 +31,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("employees/update/**","tickets/update/**")
                         .hasRole("ADMIN")
-                        .anyRequest()
+                        .requestMatchers("employees/**","tickets/**")
                         .hasAnyRole("ADMIN","USER")
-//                                .permitAll()
+                                .anyRequest()
+                                .permitAll()
                 )
                 .httpBasic(withDefaults());
         return http.build();
