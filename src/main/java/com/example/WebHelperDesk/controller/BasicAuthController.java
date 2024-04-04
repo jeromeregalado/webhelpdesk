@@ -1,14 +1,17 @@
 package com.example.WebHelperDesk.controller;
 
 import com.example.WebHelperDesk.security.AuthenticationBean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class BasicAuthController {
 
-    @PostMapping(path = "/basicauth")
+    @GetMapping(path = "/basicauth")
     public AuthenticationBean basicauth() {
         return new AuthenticationBean("You are authenticated");
     }
